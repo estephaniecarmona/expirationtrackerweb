@@ -4,9 +4,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.urls import path
 from django.views.generic.dates import DateDetailView
-from core.views import ProductList, ProductCreate, ProductEdit, ProductDelete
+from core.views import ProductList, ProductCreate, ProductEdit, ProductDelete, register
 from django.contrib.auth.models import User
 from django.views.generic.base import TemplateView
+
 
 
 LOGIN_REDIRECT_URL = "/"
@@ -14,6 +15,9 @@ LOGIN_REDIRECT_URL = "/"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('register/', register, name='register'),
+
+
     # path('', TemplateView.as_view,
     path('', ProductList.as_view()),
     path('product/', ProductList.as_view(), name="home"),

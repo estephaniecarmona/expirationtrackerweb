@@ -7,9 +7,23 @@ from django.views.generic.edit import DeleteView
 from django.shortcuts import redirect
 from core.models import Product
 from django.http import HttpResponse
+from .forms import UserRegisterForm
+
 
 def index(request):
     return HttpResponse
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            return redirect('login')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'registration/register.html', {'form': form})    
 
 
 
