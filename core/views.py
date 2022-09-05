@@ -6,6 +6,11 @@ from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
 from django.shortcuts import redirect
 from core.models import Product
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse
+
 
 
 def redirect_view(request):
@@ -28,12 +33,13 @@ class ProductList(ListView):
 
 class ProductCreate(CreateView):
     model = Product
-    fields = ['name', 'date_purchased']
+    fields = ['category', 'name', 'date_purchased', 'expiration']
+    success_url = '/'
 
 
 class ProductEdit(UpdateView):
     model = Product
-    fields = ['name']
+    fields = ['category', 'name', 'date_purchased', 'expiration']
     template_name_suffix = "_update_form"
 
 class ProductDelete(DeleteView):

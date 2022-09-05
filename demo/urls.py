@@ -5,18 +5,21 @@ from django.urls import path, include
 from django.urls import path
 from django.views.generic.dates import DateDetailView
 from core.views import ProductList, ProductCreate, ProductEdit, ProductDelete
-from core.views import redirect_view
+from django.contrib.auth.models import User
+from django.views.generic.base import TemplateView
 
 
-
+LOGIN_REDIRECT_URL = "/"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('product/', ProductList.as_view()),
+    path('accounts/', include('django.contrib.auth.urls')),
+    # path('', TemplateView.as_view,
+    path('', ProductList.as_view()),
+    path('product/', ProductList.as_view(), name="home"),
     path('create/', ProductCreate.as_view(), name='product-create'),
     path('<int:pk>/update/', ProductEdit.as_view(), name="product-update" ),
     path('<int:pk>/delete/', ProductDelete.as_view(), name="product-delete"),
-    path('/redirect/', redirect_view)
 ]
 
 if settings.DEBUG:
