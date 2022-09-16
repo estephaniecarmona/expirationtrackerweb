@@ -10,6 +10,8 @@ from django.views.generic.base import TemplateView
 
 
 
+
+
 LOGIN_REDIRECT_URL = "/"
 
 urlpatterns = [
