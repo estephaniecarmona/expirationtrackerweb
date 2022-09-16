@@ -38,10 +38,13 @@ class ProductList(ListView):
     form_class = ProductForm
 
     def get(self, request, *args, **kwargs):
-
+        # context = super(ProductList, self).get_context_data(**kwargs)
+        print(self.request.GET['category'])
+        categories = self.request.GET['category']
+        print(categories)
         form = self.form_class()
         # products = self.model.objects.all()
-        filtered_products = self.model.objects.filter(category__exact="beauty")
+        filtered_products = self.model.objects.filter(category__exact= categories)
         return render(request, 'core/product_list.html', {'form': form, 'products': filtered_products})
 
     # def get(self, **kwargs):
