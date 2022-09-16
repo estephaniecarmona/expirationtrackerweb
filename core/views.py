@@ -7,7 +7,7 @@ from django.views.generic.edit import DeleteView
 from django.shortcuts import redirect
 from core.models import Product
 from django.http import HttpResponse
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, ProductForm
 
 
 def index(request):
@@ -35,14 +35,21 @@ def redirect_view(request):
 class ProductList(ListView):
     model = Product
     context_object_name = 'products'
-    
+    form_class = ProductForm
 
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get the context
-        context = super(ProductList, self).get_context_data(**kwargs)
-        # Create any data and add it to the context
-        context['some_data'] = 'This is just some data'
-        return context
+    def get(self, request, *args, **kwargs):
+
+        form = self.form_class()
+        # products = self.model.objects.all()
+        filtered_products = self.model.objects.filter(category__exact="beauty")
+        return render(request, 'core/product_list.html', {'form': form, 'products': filtered_products})
+
+    # def get(self, **kwargs):
+    #     # Call the base implementation first to get the context
+    #     context = super(ProductList, self).get_context_data(**kwargs)
+    #     # Create any data and add it to the context
+    #     context['some_data'] = 'This is just some data'
+    #     return context
 
 
 class ProductCreate(CreateView):
