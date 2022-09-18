@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 
 CATEGORY_CHOICES = (
+    
     ('beauty', 'Beauty'),
     ('health', 'Health'),
     ('auto', 'Auto'),
@@ -12,7 +13,7 @@ CATEGORY_CHOICES = (
 
 
 class Product(models.Model):
-    category = models.CharField(max_length=6, choices=CATEGORY_CHOICES)
+    category = models.CharField(max_length=10, choices=CATEGORY_CHOICES)
     name = models.CharField(max_length=50)
     date_purchased = models.DateTimeField(default=timezone.now)
     expiration = models.DateTimeField(default=timezone.now)

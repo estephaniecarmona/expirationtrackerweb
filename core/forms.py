@@ -29,6 +29,7 @@ class UserUpdateForm(forms.ModelForm):
 
 
 CATEGORY_CHOICES = (
+    ('all', 'All'),
     ('beauty', 'Beauty'),
     ('health', 'Health'),
     ('auto', 'Auto'),
@@ -37,7 +38,7 @@ CATEGORY_CHOICES = (
 )
 
 class ProductForm(forms.Form):
-    category = forms.ChoiceField(choices = CATEGORY_CHOICES)
+    category = forms.ChoiceField(choices=CATEGORY_CHOICES)
     
     # def __str__(self):
     #     return self.name
