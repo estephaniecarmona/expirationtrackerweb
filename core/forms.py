@@ -37,10 +37,12 @@ CATEGORY_CHOICES = (
     ('other','Other')
 )
 
+EXPIRATION_DATES = (
+    ('newest', 'Newest'),
+    ('oldest', 'Oldest')
+)
+
 class ProductForm(forms.Form):
     category = forms.ChoiceField(choices=CATEGORY_CHOICES)
     
-    # def __str__(self):
-    #     return self.name
-
-
+    expiration = forms.ChoiceField(choices=EXPIRATION_DATES)

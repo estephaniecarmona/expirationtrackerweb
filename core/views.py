@@ -42,6 +42,8 @@ class ProductList(ListView):
         categories = self.request.GET.get('category')
         form = self.form_class()     
 
+        expirations = self.request.GET.get('expiration')
+
         
         if categories is None:
             filtered_products = self.model.objects.all()
@@ -51,8 +53,10 @@ class ProductList(ListView):
         else:
             filtered_products = self.model.objects.filter(category__exact=categories)
 
-        
-        filtered_products = filtered_products.order_by('expiration')
+        if expirations == 'oldest':
+            filtered_products = filtered_products.order_by('expiration')
+        elif expirations == 'newest':
+            filtered_products = filtered_products.order_by('-expiration')
         
 
         return render(request, 'core/product_list.html', {'form': form, 'products': filtered_products})
