@@ -8,6 +8,15 @@ from django.shortcuts import redirect
 from core.models import Product
 from django.http import HttpResponse
 from .forms import UserRegisterForm, ProductForm
+from django.utils.timezone import datetime 
+
+
+
+
+
+
+
+
 
 
 def index(request):
@@ -40,16 +49,24 @@ class ProductList(ListView):
     def get(self, request, *args, **kwargs):
    
         categories = self.request.GET.get('category')
-        form = self.form_class()     
+        form = self.form_class()  
+           
 
         expirations = self.request.GET.get('expiration')
+
+
+
+        
+
+        
+        
 
         
         if categories is None:
             filtered_products = self.model.objects.all()
         elif categories == 'all':
             filtered_products = self.model.objects.all()
-            print(filtered_products)
+            
         else:
             filtered_products = self.model.objects.filter(category__exact=categories)
 
@@ -57,6 +74,10 @@ class ProductList(ListView):
             filtered_products = filtered_products.order_by('expiration')
         elif expirations == 'newest':
             filtered_products = filtered_products.order_by('-expiration')
+
+
+        expiration_range = self.model.objects.filter(expiration__year='2022', expiration__month='09')   
+        print(expiration_range)
         
 
         return render(request, 'core/product_list.html', {'form': form, 'products': filtered_products})

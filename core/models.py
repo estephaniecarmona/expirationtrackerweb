@@ -2,6 +2,9 @@ from django.db import models
 
 from django.utils import timezone
 
+
+
+
 CATEGORY_CHOICES = (
     
     ('beauty', 'Beauty'),
