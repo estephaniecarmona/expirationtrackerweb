@@ -1,4 +1,6 @@
-# from nis import cat
+
+from cmath import exp
+from tkinter import N
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView
@@ -8,8 +10,9 @@ from django.shortcuts import redirect
 from core.models import Product
 from django.http import HttpResponse
 from .forms import UserRegisterForm, ProductForm
-from django.utils.timezone import datetime 
+from datetime import datetime, date, timedelta
 
+from django.utils import timezone
 
 
 
@@ -54,6 +57,8 @@ class ProductList(ListView):
 
         expirations = self.request.GET.get('expiration')
 
+        expired_products = self.request.GET.get('expired_products')
+
 
 
         
@@ -76,11 +81,33 @@ class ProductList(ListView):
             filtered_products = filtered_products.order_by('-expiration')
 
 
-        expiration_range = self.model.objects.filter(expiration__year='2022', expiration__month='09')   
-        print(expiration_range)
+        # print(expiration_range)
+        
+  
         
 
+        
+        end_date = datetime.now().date() + timedelta(days=7)
+        # end_date = "2011-01-01"
+        
+
+        # print(f'end_date{end_date}')
+        expiration_range = self.model.objects.filter(expiration__lte=date.today())   
+
+        # expiration_range = self.model.objects.filter(expiration__range=[start_date, end_date])
+        print(f'exp_range{expiration_range}')
+        if expired_products == 'expired':
+            filtered_products = expiration_range
+        elif expired_products == 'notexpired':
+            filtered_products = self.model.objects.filter(expiration__gte=date.today())
+
+
+
+    
+
+
         return render(request, 'core/product_list.html', {'form': form, 'products': filtered_products})
+    
     
 
 

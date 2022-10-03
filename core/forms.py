@@ -42,7 +42,14 @@ EXPIRATION_DATES = (
     ('oldest', 'Oldest')
 )
 
+EXPIRED_PRODUCT = (
+    ('expired', 'Expired'),
+    ('notexpired', 'Not Expired'),
+    ('all', 'All')
+)
 class ProductForm(forms.Form):
     category = forms.ChoiceField(choices=CATEGORY_CHOICES)
     
     expiration = forms.ChoiceField(choices=EXPIRATION_DATES)
+
+    expired_products = forms.ChoiceField(choices=EXPIRED_PRODUCT)
