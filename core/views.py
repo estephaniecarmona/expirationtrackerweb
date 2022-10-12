@@ -98,15 +98,18 @@ class ProductList(ListView):
         print(f'exp_range{expiration_range}')
         if expired_products == 'expired':
             filtered_products = expiration_range
+            print(len(filtered_products))
         elif expired_products == 'notexpired':
             filtered_products = self.model.objects.filter(expiration__gte=date.today())
 
 
 
+
+        print(len(expiration_range))
     
 
 
-        return render(request, 'core/product_list.html', {'form': form, 'products': filtered_products})
+        return render(request, 'core/product_list.html', {'form': form, 'products': filtered_products, 'expiration_count': len(expiration_range)})
     
     
 

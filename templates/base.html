@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +8,16 @@
     <title>Document</title>
 </head>
 <body>
-    
+
 
 
     {% if user.is_authenticated %}
+      <img src="{% static '/images/bell_notif.png' %}"
+        width="25"
+        height="30" />
+      
+      {{ expiration_count }}
+
       Hi {{ user.username }}!
       <p><a href="{% url 'logout' %}">Log Out</a></p>
     {% else %}
