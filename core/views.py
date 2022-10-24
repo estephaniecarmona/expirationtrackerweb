@@ -74,33 +74,32 @@ class ProductList(ListView):
             
         else:
             filtered_products = self.model.objects.filter(category__exact=categories)
-
+        print(filtered_products)
         if expirations == 'oldest':
             filtered_products = filtered_products.order_by('expiration')
         elif expirations == 'newest':
             filtered_products = filtered_products.order_by('-expiration')
 
+        print(f'fp {filtered_products}')
 
-        # print(expiration_range)
+
+      
         
   
         
 
         
         end_date = datetime.now().date() + timedelta(days=7)
-        # end_date = "2011-01-01"
-        
+      
+        # expiration_range = self.model.object.filter(expiration__lte=date.today())   
+        expiration_range = filtered_products.filter(expiration__lte=date.today())
 
-        # print(f'end_date{end_date}')
-        expiration_range = self.model.objects.filter(expiration__lte=date.today())   
-
-        # expiration_range = self.model.objects.filter(expiration__range=[start_date, end_date])
         print(f'exp_range{expiration_range}')
         if expired_products == 'expired':
             filtered_products = expiration_range
-            print(len(filtered_products))
+            print(filtered_products)
         elif expired_products == 'notexpired':
-            filtered_products = self.model.objects.filter(expiration__gte=date.today())
+            filtered_products = filtered_products.filter(expiration__gte=date.today())
 
 
 
