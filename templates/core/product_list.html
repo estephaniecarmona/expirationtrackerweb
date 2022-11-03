@@ -2,33 +2,12 @@
 
 {% block content %}
 
-<ul class="nav">
-    <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="#">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">FAQ</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">About</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Guide</a>
-    </li>
-  </ul>
 
 
 
 
-<div class="container py-5">
-    <h1>Register</h1>
-    <form method="POST">
-        {% csrf_token %}
 
-        <a class="btn btn-primary" href="/register">Register</a>
-    </form>
-    <p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
-</div>
+
 
 
 <style>
