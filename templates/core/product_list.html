@@ -2,14 +2,6 @@
 
 {% block content %}
 
-
-
-
-
-
-
-
-
 <style>
     @media only screen and (max-width:800px) {
 
@@ -59,17 +51,15 @@
 
 
     {{ form }}
-
-
-
-
-
-
-
-
-
     {{ filtered_products }} <input type="submit" value="Submit">
 </form>
+
+
+<div>
+    <a class="btn btn-secondary btn-sm mt-1 mb-1" 
+        href="{% url 'product-create' %}">Add New Product</a>
+
+</div>
 
 
 

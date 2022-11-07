@@ -23,8 +23,8 @@ urlpatterns = [
     # path('', TemplateView.as_view,
     path('', ProductList.as_view()),
     path('product/', ProductList.as_view(), name="home"),
-    path('create/', ProductCreate.as_view(), name='product-create'),
-    path('<int:pk>/update/', ProductEdit.as_view(), name="product-update" ),
+    path('create/', ProductCreate.as_view(), name="product-create"),
+    path('<int:pk>/update/', ProductEdit.as_view(), name="product-update"),
     path('<int:pk>/delete/', ProductDelete.as_view(), name="product-delete"),
 ]
 

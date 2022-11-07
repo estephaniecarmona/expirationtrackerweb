@@ -127,7 +127,7 @@ class ProductList(ListView):
 class ProductCreate(CreateView):
     model = Product
     fields = ['category', 'name', 'date_purchased', 'expiration']
-    success_url = '/'
+    
 
 
 class ProductEdit(UpdateView):
