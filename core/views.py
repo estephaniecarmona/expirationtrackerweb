@@ -40,7 +40,10 @@ def register(request):
 
 
 def redirect_view(request):
-    response = redirect('/redirect-success/')
+    if request.user.is_authenticated:
+        response = redirect('product/')
+    else:
+        response = redirect('home/')
     return response
 
 
