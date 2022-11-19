@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "django-project-boilerplate"
+version = "0.1.0"
+description = ""
+authors = ["Estephanie Carmona <estephflcl@gmail.com>"]
+readme = "README.md"
+packages = [{include = "django_project_boilerplate"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+autopep8 = "1.4.4"
+django = "2.2.13"
+pep8 = "1.7.1"
+pycodestyle = "2.5.0"
+pytz = "2018.5"
+sqlparse = "0.2.4"
+django-crispy-forms = "1.14.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
