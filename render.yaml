@@ -1,7 +1,7 @@
-databases:
-  - name: django-project-boilerplate
-    databaseName: django-project-boilerplate
-    user: django-project-boilerplate
+# databases:
+#   - name: django-project-boilerplate
+#     databaseName: django-project-boilerplate
+#     user: django-project-boilerplate
 
 services:
   - type: web
