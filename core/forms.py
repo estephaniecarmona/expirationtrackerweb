@@ -53,3 +53,5 @@ class ProductForm(forms.Form):
     expiration = forms.ChoiceField(choices=EXPIRATION_DATES)
 
     expired_products = forms.ChoiceField(choices=EXPIRED_PRODUCT)
+
+    
