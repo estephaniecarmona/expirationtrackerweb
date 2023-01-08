@@ -55,12 +55,12 @@ class ProductList(ListView):
     def get(self, request, *args, **kwargs):
    
         categories = self.request.GET.get('category')
-        form = self.form_class()  
-           
 
         expirations = self.request.GET.get('expiration')
 
         expired_products = self.request.GET.get('expired_products')
+
+
         
         if categories is None:
             filtered_products = self.model.objects.all()
@@ -100,23 +100,32 @@ class ProductList(ListView):
 
 
         print(len(expiration_range))
+
+
+
+        form = self.form_class(initial={
+            'category': categories, 
+            'expiration': expirations,
+            'expired_products': expired_products
+        })  
+           
     
 
 
         return render(request, 'core/product_list.html', {'form': form, 'products': filtered_products, 'expiration_count': len(expiration_range)})
     
     
-def get_saved(request):
-    if request.method == 'POST':
-        form = ProductForm(request.POST)
+# def get_saved(request):
+#     if request.method == 'POST':
+#         form = ProductForm(request.POST)
 
-        if form.is_valid():
-            return HttpResponse('/filtered/')
+#         if form.is_valid():
+#             return HttpResponse('/filtered/')
 
-    else:
-        form = ProductForm()
+#     else:
+#         form = ProductForm()
     
-    return render(request, {'form': form})
+#     return render(request, {'form': form})
 
 
 class ProductCreate(CreateView):
