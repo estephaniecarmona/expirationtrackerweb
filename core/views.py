@@ -12,6 +12,8 @@ from django.http import HttpResponse
 from .forms import UserRegisterForm, ProductForm
 from datetime import datetime, date, timedelta
 
+from django.contrib.auth.models import User
+
 from django.utils import timezone
 
 
@@ -51,24 +53,25 @@ class ProductList(ListView):
     model = Product
     context_object_name = 'products'
     form_class = ProductForm
-
+    
     def get(self, request, *args, **kwargs):
-   
+        print(request.user.id)
+        productlistforuserid = self.model.objects.filter(user__id=request.user.id)
+        print(f'{productlistforuserid}productlistforuserid')
+
         categories = self.request.GET.get('category')
+        print(f'catergories{categories}')
 
         expirations = self.request.GET.get('expiration')
 
         expired_products = self.request.GET.get('expired_products')
 
-
-        
         if categories is None:
-            filtered_products = self.model.objects.all()
+            filtered_products = productlistforuserid
         elif categories == 'all':
-            filtered_products = self.model.objects.all()
-            
+            filtered_products = productlistforuserid
         else:
-            filtered_products = self.model.objects.filter(category__exact=categories)
+            filtered_products = productlistforuserid.filter(category__exact=categories)
         print(filtered_products)
         if expirations == 'oldest':
             filtered_products = filtered_products.order_by('expiration')
@@ -86,10 +89,10 @@ class ProductList(ListView):
         
         end_date = datetime.now().date() + timedelta(days=7)
       
-        # expiration_range = self.model.object.filter(expiration__lte=date.today())   
+         
         expiration_range = filtered_products.filter(expiration__lte=date.today())
 
-        print(f'exp_range{expiration_range}')
+        # print(f'exp_range{expiration_range}')
         if expired_products == 'expired':
             filtered_products = expiration_range
             print(filtered_products)
@@ -112,20 +115,12 @@ class ProductList(ListView):
     
 
 
-        return render(request, 'core/product_list.html', {'form': form, 'products': filtered_products, 'expiration_count': len(expiration_range)})
+        return render(request, 'core/product_list.html', {
+            'form': form,
+            'products': filtered_products,
+            'expiration_count': len(expiration_range)
+        })
     
-    
-# def get_saved(request):
-#     if request.method == 'POST':
-#         form = ProductForm(request.POST)
-
-#         if form.is_valid():
-#             return HttpResponse('/filtered/')
-
-#     else:
-#         form = ProductForm()
-    
-#     return render(request, {'form': form})
 
 
 class ProductCreate(CreateView):
