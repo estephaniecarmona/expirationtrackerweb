@@ -16,7 +16,7 @@ CATEGORY_CHOICES = (
 
 
 class Product(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE,  default=1)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICES)
     name = models.CharField(max_length=50)
     date_purchased = models.DateTimeField(default=timezone.now)

@@ -16,7 +16,7 @@ from django.contrib.auth.models import User
 
 from django.utils import timezone
 
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
@@ -123,11 +123,14 @@ class ProductList(ListView):
     
 
 
-class ProductCreate(CreateView):
+class ProductCreate(LoginRequiredMixin, CreateView):
     model = Product
     fields = ['category', 'name', 'date_purchased', 'expiration']
     success_url = '/'
     
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class ProductEdit(UpdateView):
