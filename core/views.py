@@ -137,6 +137,7 @@ class ProductEdit(UpdateView):
     model = Product
     fields = ['category', 'name', 'date_purchased', 'expiration']
     template_name_suffix = "_update_form"
+    success_url = '/'
 
 class ProductDelete(DeleteView):
     model = Product
