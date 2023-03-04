@@ -27,3 +27,10 @@ h1 {
   text-align: auto;
 }
 
+.notif-for-bell {
+  filter: invert(1);
+}
+
+.username {
+  
+}
