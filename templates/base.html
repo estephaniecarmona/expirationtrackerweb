@@ -39,13 +39,15 @@
         <ul class="navbar-nav">
       
             {% if user.is_authenticated %}
-            <img class="notif-for-bell" src="{% static '/images/notif-bell.svg' %}" width="25" height="30" />
-
+            <span class="navbar-text">
+              <img class="notif-for-bell" src="{% static '/images/notif-bell.svg' %}" width="25" height="30" />
             {{ expiration_count }}
+            </span>
 
 
-
+            <span class="navbar-text">
             Hi {{ user.username }}!
+            </span>
             <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
             </li>
