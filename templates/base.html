@@ -40,8 +40,8 @@
       
             {% if user.is_authenticated %}
             <span class="navbar-text">
-              <img class="notif-for-bell" src="{% static '/images/notif-bell.svg' %}" width="25" height="30" />
-            {{ expiration_count }}
+              
+            <a href="/product/?category=all&expiration=oldest&expired_products=expired" class="notif-for-bell"><span class="num">{{ expiration_count }}</span></a>
             </span>
 
 

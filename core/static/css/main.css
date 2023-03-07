@@ -28,14 +28,28 @@ h1 {
 }
 
 .notif-for-bell {
+  
   position: relative;
   display: block;
-  height: 50px;
-  width: 50px;
-  background: url('/home/estephanie/projects/djangoboilerplate/core/static/images/notif-bell.svg')
+  height: 30px;
+  width: 26px;
+  background: url('/static/images/notif-bell.svg');
   background-size: contain;
   text-decoration: none;
+
 }
 
-
-
+.num {
+  
+  background: #f00;
+  width: 18px;
+  line-height: 18px;
+  text-align: center;
+  height: 18px;
+  border-radius: 50%;
+  position: absolute;
+  right: -5px;
+  top: -2px;
+  color: #faf4f4;
+  font-size: 12px;
+}
