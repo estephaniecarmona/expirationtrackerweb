@@ -27,8 +27,12 @@ h1 {
   text-align: auto;
 }
 
+.navbar-text {
+  padding-left: 10px;
+}
+
 .notif-for-bell {
-  
+  padding-right: 20px;
   position: relative;
   display: block;
   height: 30px;
@@ -36,6 +40,7 @@ h1 {
   background: url('/static/images/notif-bell.svg');
   background-size: contain;
   text-decoration: none;
+
 
 }
 
@@ -53,3 +58,4 @@ h1 {
   color: #faf4f4;
   font-size: 12px;
 }
+
