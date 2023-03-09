@@ -39,27 +39,23 @@
 
 {% if user.is_authenticated %}
 
-<!-- <form method = "GET">
-  {{ form.as_p }}
-  
-  <input type = "submit" value = "Submit">
-</form> -->
 
 
 
-<form method="GET">
 
 
-    {{ form }}
-    {{ filtered_products }} <input type="submit" value="Submit">
-</form>
 
-
-<div>
+<div class="p-2">
     <a class="btn btn-secondary btn-sm mt-1 mb-1" 
-        href="{% url 'product-create' %}">Add New Product</a>
+        href="{% url 'product-create' %}">+ Add New Product</a>
 
 </div>
+
+
+    <form class="p-1" method="GET">
+        {{ form }} 
+        {{ filtered_products }} <input type="submit" value="Submit"> 
+    </form>
 
 
 
@@ -73,7 +69,9 @@
                     <th>Product</th>
                     <th>Date Purchased</th>
                     <th>Expiration Date</th>
-                    <th></th>
+                    <th>
+                 
+                    </th>
                 </tr>
 
             </thead>
