@@ -2,7 +2,7 @@ from django.db import models
 
 from django.utils import timezone
 from django.contrib.auth.models import User
-
+from  datetime import datetime, date
 
 
 CATEGORY_CHOICES = (
@@ -19,8 +19,8 @@ class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICES)
     name = models.CharField(max_length=50)
-    date_purchased = models.DateTimeField(default=timezone.now)
-    expiration = models.DateTimeField(default=timezone.now)
+    date_purchased = models.DateField(auto_now_add=False, auto_now=False, blank=True, null=True)
+    expiration = models.DateField(auto_now_add=False, auto_now=False, blank=True, null=True)
     
 
     def get_absolute_url(self):

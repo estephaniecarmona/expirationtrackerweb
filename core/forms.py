@@ -2,8 +2,8 @@ from random import choices
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-
-
+from .models import Product
+import datetime
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
@@ -55,3 +55,14 @@ class ProductForm(forms.Form):
     expired_products = forms.ChoiceField(choices=EXPIRED_PRODUCT)
 
     
+class Dateform(forms.ModelForm):
+    DATE_INPUT_FORMATS = ['%d-%m-%Y']
+
+    def __init__(self, *args, **kwargs):
+        super(Dateform, self).__init__(*args, **kwargs)
+        self.fields['date_purchased'].initial=datetime.date.today
+
+  
+    class Meta:
+        fields = ['category', 'name', 'date_purchased', 'expiration']
+        model = Product

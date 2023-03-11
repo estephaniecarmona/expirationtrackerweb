@@ -9,7 +9,7 @@ from django.views.generic.edit import DeleteView
 from django.shortcuts import redirect
 from core.models import Product
 from django.http import HttpResponse
-from .forms import UserRegisterForm, ProductForm
+from .forms import UserRegisterForm, ProductForm, Dateform
 from datetime import datetime, date, timedelta
 
 from django.contrib.auth.models import User
@@ -57,7 +57,7 @@ class ProductList(ListView):
     def get(self, request, *args, **kwargs):
         print(request.user.id)
         productlistforuserid = self.model.objects.filter(user__id=request.user.id)
-        print(f'{productlistforuserid}productlistforuserid')
+        # print(f'{productlistforuserid}productlistforuserid')
 
         categories = self.request.GET.get('category')
         print(f'catergories{categories}')
@@ -72,13 +72,13 @@ class ProductList(ListView):
             filtered_products = productlistforuserid
         else:
             filtered_products = productlistforuserid.filter(category__exact=categories)
-        print(filtered_products)
+        # print(filtered_products)
         if expirations == 'oldest':
             filtered_products = filtered_products.order_by('expiration')
         elif expirations == 'newest':
             filtered_products = filtered_products.order_by('-expiration')
 
-        print(f'fp {filtered_products}')
+        # print(f'fp {filtered_products}')
 
 
       
@@ -102,7 +102,7 @@ class ProductList(ListView):
 
 
 
-        print(len(expiration_range))
+        print(str(expiration_range))
 
 
 
@@ -125,8 +125,10 @@ class ProductList(ListView):
 
 class ProductCreate(LoginRequiredMixin, CreateView):
     model = Product
-    fields = ['category', 'name', 'date_purchased', 'expiration']
     success_url = '/'
+
+    form_class = Dateform
+
     
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -139,10 +141,13 @@ class ProductEdit(UpdateView):
     template_name_suffix = "_update_form"
     success_url = '/'
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 class ProductDelete(DeleteView):
     model = Product
 
     success_url = '/product'
 
-    # template_name = "product_confirm_delete.html"
 
