@@ -17,12 +17,28 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.base import TemplateView
+from .models import Product
+
+
+# class Expirationcount(TemplateView):
+#     template_name = 'base.html'
+#     def get_context_data(self,*args, **kwargs):
+#         context = super(Expirationcount), self).get_context_data(*args,**kwargs)
+#         context['users'] = YourModel.objects.all()
+#         return context
+
+# class Expirationcount(TemplateView):
+#     template_name = 'base.html'
+#     extra_context = {'expiration_count': Product.objects.all()}
 
 
 
-
-
-
+def get_expiration_count(self):
+    productlistforuserid = self.model.objects.filter(user__id=self.request.user.id)
+    filtered_products = productlistforuserid
+    expiration_range = filtered_products.filter(expiration__lte=date.today())
+    return len(expiration_range)
 
 def index(request):
     return HttpResponse
@@ -78,15 +94,6 @@ class ProductList(ListView):
         elif expirations == 'newest':
             filtered_products = filtered_products.order_by('-expiration')
 
-        # print(f'fp {filtered_products}')
-
-
-      
-        
-  
-        
-
-        
         end_date = datetime.now().date() + timedelta(days=7)
       
          
@@ -102,7 +109,7 @@ class ProductList(ListView):
 
 
 
-        print(str(expiration_range))
+        # print(str(expiration_range))
 
 
 
@@ -111,15 +118,13 @@ class ProductList(ListView):
             'expiration': expirations,
             'expired_products': expired_products
         })  
-           
-    
-
-
-        return render(request, 'core/product_list.html', {
+        
+        context = {
             'form': form,
             'products': filtered_products,
-            'expiration_count': len(expiration_range)
-        })
+            'expiration_count': get_expiration_count(self)
+        }
+        return render(request, 'core/product_list.html', context)
     
 
 
@@ -133,7 +138,12 @@ class ProductCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProductCreate, self).get_context_data(*args, **kwargs)
+        context['expiration_count'] = get_expiration_count(self)
+        return context
+    
 
 class ProductEdit(UpdateView):
     model = Product
@@ -144,10 +154,21 @@ class ProductEdit(UpdateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProductEdit, self).get_context_data(*args, **kwargs)
+        context['expiration_count'] = get_expiration_count(self)
+        return context
+
 
 class ProductDelete(DeleteView):
     model = Product
-
     success_url = '/product'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProductDelete, self).get_context_data(*args, **kwargs)
+        context['expiration_count'] = get_expiration_count(self)
+        return  context
+    
 
 
