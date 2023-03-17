@@ -82,7 +82,7 @@ if ENVIRONMENT == 'production':
    
 
 
-LOGIN_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "product-list"
 LOGOUT_REDIRECT_URL = "home"
 
 

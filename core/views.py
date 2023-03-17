@@ -170,5 +170,12 @@ class ProductDelete(DeleteView):
         context['expiration_count'] = get_expiration_count(self)
         return  context
     
+# class Login(LoginView):
+#     model = Product
+#     success_url = '/'
 
+#     def get_context_data(self, *args, **kwargs):
+#         context = super(LoginView, self).get_context_data(*args, **kwargs)
+#         context['expiration_count'] = get_expiration_count(self)
+#         return  context
 

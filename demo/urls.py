@@ -24,7 +24,7 @@ urlpatterns = [
     path('', redirect_view),
 
     path('home/', TemplateView.as_view(template_name="home.html"), name="home"),
-    path('product/', ProductList.as_view(), name="home"),
+    path('product/', ProductList.as_view(), name="product-list"),
     path('create/', ProductCreate.as_view(), name="product-create"),
     path('<int:pk>/update/', ProductEdit.as_view(), name="product-update"),
     path('<int:pk>/delete/', ProductDelete.as_view(), name="product-delete"),
@@ -35,3 +35,4 @@ if settings.DEBUG:
                           document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+
