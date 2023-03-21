@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %} 
 {% block content %}
 
 <style>
@@ -44,7 +44,7 @@
 
 
 
-
+<div class="container">
 <div class="p-2">
     <a class="btn btn-secondary btn-sm mt-1 mb-1" 
         href="{% url 'product-create' %}">+ Add New Product</a>
@@ -52,8 +52,10 @@
 </div>
 
 
+
     <form class="p-1" method="GET">
-        {{ form }} 
+        {{ form }}
+
         {{ filtered_products }} <input class = "btn btn-secondary btn-sm mt-1 mb-1" type="submit" value="Submit"> 
     </form>
 
@@ -96,6 +98,7 @@
         </table>
     </div>
 </div>    
+</div>
 {% endif %}
 {% endblock %}
             
