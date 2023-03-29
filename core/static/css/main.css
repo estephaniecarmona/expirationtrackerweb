@@ -14,13 +14,12 @@ h1 {
 
 
 .homepage-picture {
-    margin-top: 75px;
+    /* margin-top: 75px;
     margin-bottom: 50px;
-    margin-left: 1100px;
-    margin-right: 100px;
-    border: 5px solid black;
-    width: 600px;
-    height: 600px;
+    margin-left: 100px;
+    margin-right: 100px; */
+    width: 800px;
+    height: 800px;
 }
 
 .table-responsive {
