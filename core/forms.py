@@ -61,6 +61,7 @@ class Dateform(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(Dateform, self).__init__(*args, **kwargs)
         self.fields['date_purchased'].initial=datetime.date.today
+        self.fields['expiration'].initial=datetime.date.today    
 
   
     class Meta:
